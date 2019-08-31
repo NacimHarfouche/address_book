@@ -27,8 +27,13 @@ function addContact() {
 }
 
 // function qui crée et injecte des elements
-function injectIt(lastName, firstName) {
-	let aElt = $("<a>").text(`${lastName} ${firstName}`);
+function injectIt(civis, lastName, firstName) {
+	if (civis === "madame") {
+		civis = "Mme";
+	} else {
+		civis = "Mr";
+	}
+	let aElt = $("<a>").text(`${civis} ${lastName} ${firstName}`);
 	aElt.attr("href", "#");
 	aElt.on("click", editContact);
 	let liElt = $("<li>");
@@ -53,7 +58,7 @@ $(document).on("DOMContentLoaded", () => {
 	}
 	arrayContact = JSON.parse(contactCookie);
 	for (let i = 0; i < arrayContact.length; i++) {
-		injectIt(arrayContact[i].lastName, arrayContact[i].firstName);
+		injectIt(arrayContact[i].civis, arrayContact[i].lastName, arrayContact[i].firstName);
 	}
 
 });
@@ -72,6 +77,11 @@ buttonRemoveElt.on("click", () => {
 
 // action enregistre et save cookie
 saveButtonElt.on("click", () => {
+	// if input empty stop the function
+	if ($("#firstName").val() === "" || $("#lastName").val() === "" || $("#phoneNumber").val() === "") {
+		console.log("vide");
+		return;
+	}
 	let contact = {};
 	contact.civis = $("#civis").val();
 	contact.firstName = $("#firstName").val();
@@ -80,7 +90,7 @@ saveButtonElt.on("click", () => {
 	arrayContact.push(contact);
 	window.localStorage.setItem("contact", JSON.stringify(arrayContact));
 	$("#formulaire").hide();
-	injectIt(contact.lastName, contact.firstName);
+	injectIt(contact.civis, contact.lastName, contact.firstName);
 	removeContact();
 });
 

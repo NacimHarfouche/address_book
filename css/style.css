@@ -1,0 +1,26 @@
+body {
+	background-color: #f3edd3;
+}
+h1 {
+	font-size: 3.5em;
+	color: #113f59;
+}
+h1 .fa-book {
+	font-size: 1.2em;
+}
+hr {
+	text-align: center;
+	color: black;
+	background-color: black;
+}
+label {
+	font-size: 2em;
+	color: #00968f;
+}
+input, i, button, select {
+	font-size: 1.3em;
+}
+/*.hiden {
+	display: none;
+}*/
+

@@ -12,7 +12,7 @@ let liElts = $("li");
 ///////////////////////////////////////////function//////////////////////////////////////
 // function clean les champs form
 function removeContact() {
-	$("#civis").val("");
+	$("#civis").val("madame");
 	$("#firstName").val("");
 	$("#lastName").val("");
 	$("#phoneNumber").val("");
@@ -28,11 +28,7 @@ function addContact() {
 
 // function qui crée et injecte des elements
 function injectIt(civis, lastName, firstName) {
-	if (civis === "madame") {
-		civis = "Mme";
-	} else {
-		civis = "Mr";
-	}
+	civis = civis === "madame" ? "Mme" : "Mr";
 	let aElt = $("<a>").text(`${civis} ${lastName} ${firstName}`);
 	aElt.attr("href", "#");
 	aElt.on("click", editContact);
@@ -79,8 +75,9 @@ buttonRemoveElt.on("click", () => {
 saveButtonElt.on("click", () => {
 	// if input empty stop the function
 	if ($("#firstName").val() === "" || $("#lastName").val() === "" || $("#phoneNumber").val() === "") {
-		console.log("vide");
 		return;
+	} else if (!/[0-9]+/.test(parseInt($("#phoneNumber").val()))) { // if phone number is not a number stop the func
+		return
 	}
 	let contact = {};
 	contact.civis = $("#civis").val();
